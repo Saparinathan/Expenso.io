@@ -38,5 +38,4 @@ public class ExpenseEntity {
 @Column(name = "description", columnDefinition = "TEXT")
       private String description;
 
-
 }

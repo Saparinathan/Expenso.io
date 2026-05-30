@@ -54,14 +54,20 @@ public class ExpenseService {
 
     //Delete All Expenses
    public boolean deleteAll(){
+        if(expenseRepository.count() == 0){
+            return false;
+        }
        expenseRepository.deleteAll();
-       return expenseRepository.count() == 0;
-   }
+       return true;
+    }
 
     //Delete Expense By id
     public boolean delete(Long id){
+        if(!expenseRepository.existsById(id)){
+            return false;
+        }
         expenseRepository.deleteById(id);
-        return !expenseRepository.existsById(id);
+        return true;
     }
 
     }
