@@ -14,14 +14,13 @@ public class ExpenseMapper {
     }
     public ExpenseDTO toDto(ExpenseEntity expenseEntity){
         return new ExpenseDTO(
-        expenseEntity.getId(),
-        expenseEntity.getAmount(),
-        expenseEntity.getCategory(),
-        expenseEntity.getDate(),
-        expenseEntity.getCreatedAt(),
-        expenseEntity.getDescription()
+                expenseEntity.getId(),
+                expenseEntity.getAmount(),
+                expenseEntity.getCategory(),
+                expenseEntity.getDate(),
+                expenseEntity.getCreatedAt(),
+                expenseEntity.getDescription()
         );
     }
 }
-
 

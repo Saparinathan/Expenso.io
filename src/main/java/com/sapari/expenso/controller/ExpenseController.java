@@ -32,26 +32,26 @@ public class ExpenseController {
     @Operation(summary = "Create a new expense", description = "Add a new expense to the system")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Expense created successfully!",
-            content = @Content(schema = @Schema(implementation = ExpenseDTO.class))),
+                    content = @Content(schema = @Schema(implementation = ExpenseDTO.class))),
             @ApiResponse(responseCode = "400", description = "Validation failed - invalid or missing fields"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
 
     })
-    @PostMapping("/add-expense")
+    @PostMapping("/expenses")
     public ResponseEntity<ExpenseDTO> save(@RequestBody @Valid ExpenseDTO expenseDTO) {
         ExpenseDTO savedExpense = expenseService.save(expenseDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedExpense);
     }
 
-    //Find All Expense
+    //Find All Expenses
     @Operation(summary = "View all expenses", description = "View all expenses that stored in the system")
     @ApiResponses(value = {
-           @ApiResponse(responseCode = "200", description = "All expenses are retrieved successfully!",
-           content = @Content(array = @ArraySchema(schema = @Schema(implementation = ExpenseDTO.class)))),
+            @ApiResponse(responseCode = "200", description = "All expenses are retrieved successfully!",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = ExpenseDTO.class)))),
             @ApiResponse(responseCode = "204", description = "There is no expenses are stored")
     })
 
-    @GetMapping("/view-expense")
+    @GetMapping("/expenses")
     public ResponseEntity<List<ExpenseDTO>> findAll() {
         List<ExpenseDTO> expenses = expenseService.findAll();
         if(expenses.isEmpty()){
@@ -63,12 +63,12 @@ public class ExpenseController {
     //Find Expense By Id
     @Operation(summary = "View expense by id", description = "View expense by id that stored in the system")
     @ApiResponses(value = {
-          @ApiResponse(responseCode = "200", description = "Expense is retrieved successfully by using id",
-          content = @Content(schema = @Schema(implementation = ExpenseDTO.class))),
-          @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(responseCode = "200", description = "Expense is retrieved successfully by using id",
+                    content = @Content(schema = @Schema(implementation = ExpenseDTO.class))),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
 
-    @GetMapping("/view-expense/{id}")
+    @GetMapping("/expenses/{id}")
     public ResponseEntity<ExpenseDTO> findById(@PathVariable Long id) {
         ExpenseDTO findExpenseById = expenseService.findById(id);
         return ResponseEntity.ok(findExpenseById);
@@ -78,12 +78,12 @@ public class ExpenseController {
     @Operation(summary = "Update expense", description = "Update an existing expense by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "An expense successfully updated by id",
-            content = @Content(schema = @Schema(implementation = ExpenseDTO.class))),
+                    content = @Content(schema = @Schema(implementation = ExpenseDTO.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
 
-    @PutMapping("/update-expense/{id}")
-  public ResponseEntity<ExpenseDTO> update(@PathVariable Long id,@RequestBody @Valid ExpenseDTO expenseDTO) {
+    @PutMapping("/expenses/{id}")
+    public ResponseEntity<ExpenseDTO> update(@PathVariable Long id,@RequestBody @Valid ExpenseDTO expenseDTO) {
         ExpenseDTO updatedExpense = expenseService.update(id, expenseDTO);
         return ResponseEntity.status(HttpStatus.OK).body(updatedExpense);
     }
@@ -95,7 +95,7 @@ public class ExpenseController {
                     content = @Content(schema = @Schema(implementation = ExpenseDTO.class))),
             @ApiResponse(responseCode = "404", description = "No expenses found to delete")
     })
-    @DeleteMapping("/delete-expense")
+    @DeleteMapping("/expenses")
     public ResponseEntity<Void> deleteAll(){
         boolean deleteAll = expenseService.deleteAll();
         return ResponseEntity.status(deleteAll ? HttpStatus.NO_CONTENT : HttpStatus.NOT_FOUND).build();
@@ -105,10 +105,10 @@ public class ExpenseController {
     @Operation(summary = "Delete expense by id", description = "Delete an expense by id that stored in the system")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "An expense deleted successfully by id",
-            content = @Content(schema = @Schema(implementation = ExpenseDTO.class))),
+                    content = @Content(schema = @Schema(implementation = ExpenseDTO.class))),
             @ApiResponse(responseCode = "404", description = "Expense not found in this id")
     })
-    @DeleteMapping("/delete-expense/{id}")
+    @DeleteMapping("/expenses/{id}")
     public ResponseEntity<ExpenseDTO> deleteById(@PathVariable("id") Long id){
         boolean deleted = expenseService.delete(id);
         return ResponseEntity.status(deleted ? 200 : 404 ).build();

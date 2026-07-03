@@ -1,4 +1,5 @@
 package com.sapari.expenso.dto;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
@@ -18,7 +19,7 @@ public class ExpenseDTO implements Serializable {
     @Schema(example = "1")
     private Long id;
     @Schema(example = "350")
-      private BigDecimal amount;
+    private BigDecimal amount;
     @Schema(example = "Cinema")
     private String category;
     @Schema(example = "2026-05-29")

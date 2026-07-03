@@ -40,25 +40,25 @@ public class ExpenseService {
     }
 
     //Update Expense
-   public ExpenseDTO update(Long id, ExpenseDTO expenseDTO) {
+    public ExpenseDTO update(Long id, ExpenseDTO expenseDTO) {
         ExpenseEntity existingEntity = expenseRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Expense not found with id" + id));
-                existingEntity.setAmount(expenseDTO.getAmount());
-                existingEntity.setCategory(expenseDTO.getCategory());
-                existingEntity.setDate(expenseDTO.getDate());
-                existingEntity.setDescription(expenseDTO.getDescription());
+        existingEntity.setAmount(expenseDTO.getAmount());
+        existingEntity.setCategory(expenseDTO.getCategory());
+        existingEntity.setDate(expenseDTO.getDate());
+        existingEntity.setDescription(expenseDTO.getDescription());
         ExpenseEntity savedEntity = expenseRepository.save(existingEntity);
         return expenseMapper.toDto(savedEntity);
     }
 
 
     //Delete All Expenses
-   public boolean deleteAll(){
+    public boolean deleteAll(){
         if(expenseRepository.count() == 0){
             return false;
         }
-       expenseRepository.deleteAll();
-       return true;
+        expenseRepository.deleteAll();
+        return true;
     }
 
     //Delete Expense By id
@@ -70,7 +70,4 @@ public class ExpenseService {
         return true;
     }
 
-    }
-
-
-
+}
