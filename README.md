@@ -47,8 +47,8 @@ Expenso.io is a RESTful backend application that enables users to track and mana
 ## Setup & Installation
 
 ### Prerequisites
-- [ ] Java 25
-- [ ] Spring Boot 4
+- [ ] Java 21
+- [ ] Spring Boot 3.5.16
 - [ ] Postgresql 18.2
 - [ ] Maven 3.9
 
