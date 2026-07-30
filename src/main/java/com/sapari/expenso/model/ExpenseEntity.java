@@ -19,7 +19,6 @@ public class ExpenseEntity {
     @SequenceGenerator(name = "expenses_sequence", sequenceName = "expenses_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "expenses_sequence")
 
-
     @Column(name = "id", unique = true, updatable = false)
     private Long id;
 

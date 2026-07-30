@@ -1,7 +1,8 @@
 package com.sapari.expenso.service;
 
-import com.sapari.expenso.dto.ExpenseDTO;
 import com.sapari.expenso.dto.ExpenseMapper;
+import com.sapari.expenso.dto.ExpenseRequestDTO;
+import com.sapari.expenso.dto.ExpenseResponseDTO;
 import com.sapari.expenso.model.ExpenseEntity;
 import com.sapari.expenso.repository.ExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,14 @@ public class ExpenseService {
     ExpenseMapper expenseMapper;
 
     //Add Expense
-    public ExpenseDTO save(ExpenseDTO expenseDTO) {
+    public ExpenseResponseDTO save(ExpenseRequestDTO expenseDTO) {
         ExpenseEntity expenseEntity = expenseMapper.toEntity(expenseDTO);
         ExpenseEntity savedEntity = expenseRepository.save(expenseEntity);
         return expenseMapper.toDto(savedEntity);
     }
 
     //Find All Expenses
-    public List<ExpenseDTO> findAll() {
+    public List<ExpenseResponseDTO> findAll() {
         return expenseRepository.findAll()
                 .stream()
                 .map(expenseMapper::toDto)
@@ -33,14 +34,14 @@ public class ExpenseService {
     }
 
     //Find Expense By id
-    public ExpenseDTO findById(Long id) {
+    public ExpenseResponseDTO findById(Long id) {
         ExpenseEntity expenseEntity = expenseRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Expense not found for id " + id));
         return expenseMapper.toDto(expenseEntity);
     }
 
     //Update Expense
-    public ExpenseDTO update(Long id, ExpenseDTO expenseDTO) {
+    public ExpenseResponseDTO update(Long id, ExpenseRequestDTO expenseDTO) {
         ExpenseEntity existingEntity = expenseRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Expense not found with id" + id));
         existingEntity.setAmount(expenseDTO.getAmount());
@@ -49,16 +50,6 @@ public class ExpenseService {
         existingEntity.setDescription(expenseDTO.getDescription());
         ExpenseEntity savedEntity = expenseRepository.save(existingEntity);
         return expenseMapper.toDto(savedEntity);
-    }
-
-
-    //Delete All Expenses
-    public boolean deleteAll(){
-        if(expenseRepository.count() == 0){
-            return false;
-        }
-        expenseRepository.deleteAll();
-        return true;
     }
 
     //Delete Expense By id
