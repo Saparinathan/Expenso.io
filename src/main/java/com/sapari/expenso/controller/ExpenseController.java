@@ -62,12 +62,12 @@ public class ExpenseController {
         return ResponseEntity.ok(expenses);
     }
 
-    //Find Expense By Id
+    //Find Expense By id
     @Operation(summary = "View expense by id", description = "View expense by id that stored in the system")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Expense is retrieved successfully by using id",
                     content = @Content(schema = @Schema(implementation = ExpenseRequestDTO.class))),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(responseCode = "404", description = "Expense not found for this id")
     })
 
     @GetMapping("/expenses/{id}")

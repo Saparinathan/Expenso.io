@@ -3,9 +3,11 @@ package com.sapari.expenso.service;
 import com.sapari.expenso.dto.ExpenseMapper;
 import com.sapari.expenso.dto.ExpenseRequestDTO;
 import com.sapari.expenso.dto.ExpenseResponseDTO;
+import com.sapari.expenso.exception.ExpenseNotFoundException;
 import com.sapari.expenso.model.ExpenseEntity;
 import com.sapari.expenso.repository.ExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,7 +38,7 @@ public class ExpenseService {
     //Find Expense By id
     public ExpenseResponseDTO findById(Long id) {
         ExpenseEntity expenseEntity = expenseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Expense not found for id " + id));
+                .orElseThrow(() -> new ExpenseNotFoundException("Expense with id " + id + " not found"));
         return expenseMapper.toDto(expenseEntity);
     }
 
